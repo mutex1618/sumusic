@@ -28,6 +28,7 @@ pub fn start_player()->mpsc::Sender<PlayerCommand>{
     tx
 }
 pub fn player(rx:mpsc::Receiver<PlayerCommand>){
+    
     thread::spawn( move||{
         let sink_handle=rodio::DeviceSinkBuilder::open_default_sink().unwrap();
         let player:Player=rodio::Player::connect_new(&sink_handle.mixer());
@@ -37,18 +38,9 @@ pub fn player(rx:mpsc::Receiver<PlayerCommand>){
         PlayerCommand::Play{path}=>{
             let file = BufReader::new(File::open(path).unwrap());
             let source=Decoder::try_from(file).expect("couldn't convert file to signal.");
-            
-            match state{
-                PlayerState::Playing=>{
                 player.stop();
                 player.append(source);
                 player.play();
-            }
-            PlayerState::Stopped | PlayerState::Idle=>{
-                player.append(source);
-                player.play();
-            }
-        }
             state=PlayerState::Playing;
         },
         PlayerCommand::Pause=>{
