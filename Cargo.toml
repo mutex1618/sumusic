@@ -1,0 +1,13 @@
+[package]
+name = "music-player"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+color-eyre = "0.6.5"
+crossterm = "0.29.0"
+ratatui = "0.30.0"
+ratatui-explorer = "0.3.0"
+rodio = "0.22.2"
+tokio = "1.52.3"
+walkdir = "2.5.0"
