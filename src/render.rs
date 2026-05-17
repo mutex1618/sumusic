@@ -43,8 +43,9 @@ pub fn draw(f:&mut Frame<'_>,list:&mut App){
             height:h,
             color:Color::LightRed,
         });
+        ctx.layer();
     }
-        ctx.layer();});
+        });
     f.render_stateful_widget(musics,music_bar[0],&mut list.list_state);
     f.render_widget(show_state, text_state[0]);
     f.render_widget(sin_wave, text_state[1]);

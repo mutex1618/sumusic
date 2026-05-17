@@ -72,7 +72,7 @@ impl App {
             let path = self.get_file()?;
             Some(self.tx.send(PlayerCommand::Play { path }))
         }
-        KeyCode::Backspace => Some(self.tx.send(PlayerCommand::Pause)),
+        KeyCode::Char('s') | KeyCode::Pause => Some(self.tx.send(PlayerCommand::Pause)),
         _ => None,
     }
 }
