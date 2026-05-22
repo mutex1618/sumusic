@@ -1,4 +1,5 @@
 use rodio::{Decoder, DeviceSinkBuilder,Player, Source};
+use std::f64::consts::E;
 use std::fs::File;
 use std::io::{BufReader, sink};
 use std::path::{Path, PathBuf};
@@ -37,7 +38,13 @@ pub fn player(rx:mpsc::Receiver<PlayerCommand>){
         match cmd{
         PlayerCommand::Play{path}=>{
             let file = BufReader::new(File::open(path).unwrap());
-            let source=Decoder::try_from(file).expect("couldn't convert file to signal.");
+            let source=match Decoder::try_from(file){
+                Ok(source)=>source,
+                Err(e)=>{
+                   // eprintln!("couldn't convert to audio source{}",e);
+                    continue;}
+            
+            };
                 player.stop();
                 player.append(source);
                 player.play();

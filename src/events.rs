@@ -76,10 +76,10 @@ impl App {
         _ => None,
     }
 }
-/*pub fn handle_total_events(&mut self,event:Event){
+pub fn handle_total_events(&mut self,event:Event){
     self.handle_ui_events(&event);
     self.map_key_event(&event);
-}*/
+}
 
 fn get_file(&mut self) -> Option<PathBuf> {
     let entry = self

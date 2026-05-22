@@ -16,8 +16,7 @@ fn main() -> Result<()> {
     loop {
         terminal.draw(|f|render::draw(f,&mut app))?;
         let events=event::read()?;
-        app.handle_ui_events(&events);
-        app.map_key_event(&events);
+        app.handle_total_events(events);
         if app.should_quit {
             break;
         }
